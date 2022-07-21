@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM_2", "MVVM_2\MVVM_2.csproj", "{B6B8F7C5-1EAD-484B-A165-16CB6E64A705}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM_3", "MVVM_3\MVVM_3.csproj", "{FB0448B8-CDA1-4C17-BE78-036BA695B0A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM_4", "MVVM_4\MVVM_4.csproj", "{8D5B3D9B-21C7-4ADF-929D-B16DF5EA25B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6B8F7C5-1EAD-484B-A165-16CB6E64A705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B8F7C5-1EAD-484B-A165-16CB6E64A705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B8F7C5-1EAD-484B-A165-16CB6E64A705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B8F7C5-1EAD-484B-A165-16CB6E64A705}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB0448B8-CDA1-4C17-BE78-036BA695B0A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB0448B8-CDA1-4C17-BE78-036BA695B0A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB0448B8-CDA1-4C17-BE78-036BA695B0A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB0448B8-CDA1-4C17-BE78-036BA695B0A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D5B3D9B-21C7-4ADF-929D-B16DF5EA25B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D5B3D9B-21C7-4ADF-929D-B16DF5EA25B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D5B3D9B-21C7-4ADF-929D-B16DF5EA25B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D5B3D9B-21C7-4ADF-929D-B16DF5EA25B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
