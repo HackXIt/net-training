@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace MVVM_4
 {
@@ -10,9 +11,14 @@ namespace MVVM_4
     {
         public MainWindowViewModel()
         {
+            ClearCommand = new DelegateCommand(
+                (o) => !string.IsNullOrEmpty(Firstname) && !string.IsNullOrEmpty(Lastname), 
+                (o => { this.Firstname = ""; this.Lastname = ""; }));
             Firstname = "Nick";
             Lastname = "Developer";
         }
+        
+        public DelegateCommand ClearCommand { get; set; }
 
         // Da durch das PropertyChanged ein spezieller Setter benötigt wird, kann man nicht direkt Auto-Properties verwenden
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
@@ -29,6 +35,7 @@ namespace MVVM_4
                 // Da wir folgenden Code mehrfach verwenden müssten, wird dieser in eine Methode ausgelagert
                 // this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Firstname)));
                 // this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Fullname)));
+                this.ClearCommand.RaiseCanExecuteChanged();
             }
         }
 
