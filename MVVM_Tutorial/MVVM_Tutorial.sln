@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM_7", "MVVM_7\MVVM_7.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM_8", "MVVM_8\MVVM_8.csproj", "{C67E18BA-C00C-45E6-A727-F63AB128A3ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM_9", "MVVM_9\MVVM_9.csproj", "{9505E186-0794-4424-BD93-1E8DA441614F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{C67E18BA-C00C-45E6-A727-F63AB128A3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C67E18BA-C00C-45E6-A727-F63AB128A3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C67E18BA-C00C-45E6-A727-F63AB128A3ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9505E186-0794-4424-BD93-1E8DA441614F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9505E186-0794-4424-BD93-1E8DA441614F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9505E186-0794-4424-BD93-1E8DA441614F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9505E186-0794-4424-BD93-1E8DA441614F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
