@@ -1,0 +1,38 @@
+﻿<Window x:Class="MVVM_07.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM_07"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <local:PersonListViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ListBox ItemsSource="{Binding Persons}" Grid.Column="0" Name="PersonList" Margin="5,5,5,5"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Margin="5,5,5,5" Content="Firstname" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+            <Label Margin="5,5,5,5" Content="Lastname" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+            <Label Margin="5,5,5,5" Content="Department" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+            <TextBox Text="{Binding NewPerson.Firstname}" Margin="5,5,5,5" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" />
+            <TextBox Text="{Binding NewPerson.Lastname}" Margin="5,5,5,5" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" />
+            <TextBox Text="{Binding NewPerson.Department}" Margin="5,5,5,5" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" />
+            <Button Command="{Binding AddPersonCommand}" Content="Add Person" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="20,20,20,20" Height="30" VerticalAlignment="Top" />
+        </Grid>
+    </Grid>
+</Window>
