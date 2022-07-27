@@ -66,7 +66,6 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="MainWindowViewModel.cs" />
         <Compile Include="Person.cs" />
         <Compile Include="PersonListViewModel.cs" />
         <Compile Include="Properties\AssemblyInfo.cs">
