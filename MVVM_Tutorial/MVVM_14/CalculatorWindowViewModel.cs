@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using WPF_Basics;
 
-namespace MVVM_12
+// Dieses Projekt ist identisch zu MVVM_12,
+// jedoch wurde NotifieableBaseObject als auch DelegateCommand in eine Klassenbibliothek ausgelagert.
+namespace MVVM_14
 {
     public class CalculatorWindowViewModel : NotifiableBaseObject
     {
