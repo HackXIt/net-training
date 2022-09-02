@@ -11,6 +11,7 @@
 
     <ItemGroup>
       <PackageReference Include="Discord.Net" Version="3.7.2" />
+      <PackageReference Include="NLog" Version="5.0.4" />
     </ItemGroup>
     
     <Target Name="CopyToken" AfterTargets="Build">
