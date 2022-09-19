@@ -1,53 +1,82 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using Discord;
-using Discord.WebSocket;
-using NLog;
-using NLog.Config;
-using NLog.Targets;
+﻿using DSharpPlus;
+using DSharpPlus.Entities;
+using DSharpPlus.EventArgs;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace discord_training_bot;
 
 public class Program
 {
-    public static Task Main(string[] args) => new Program().MainAsync();
 
-    private DiscordSocketClient _client;
-    private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-    public async Task MainAsync()
+    private readonly string pinEmoji = ":pushpin:";
+    private readonly string removePinEmoji = ":no_entry_sign:";
+    static void Main()
     {
-        var logConfig = new LoggingConfiguration();
-        var logFile = new FileTarget("logfile") {FileName = "discord-training.log"};
-        var logConsole = new ConsoleTarget("logconsole");
-        logConfig.AddRule(LogLevel.Info, LogLevel.Fatal, logConsole);
-        logConfig.AddRule(LogLevel.Debug, LogLevel.Fatal, logFile);
-        LogManager.Configuration = logConfig;
+        var program = new Program();
+        Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
+        program.MainAsync().GetAwaiter().GetResult();
+    }
+
+    private async Task MainAsync()
+    {
+        var logFactory = new LoggerFactory().AddSerilog();
+        var clientCfg = new DiscordConfiguration()
+        {
+            Token = File.ReadAllText("token.txt"),
+            TokenType = TokenType.Bot,
+            Intents = DiscordIntents.AllUnprivileged,
+            LoggerFactory = logFactory
+        };
         
-        _client = new DiscordSocketClient();
+        var client = new DiscordClient(clientCfg);
 
-        _client.Log += Log;
+        client.MessageReactionAdded += ReactionAddedHandler;
 
-        //  You can assign your bot token to a string, and pass that in to connect.
-        //  This is, however, insecure, particularly if you plan to have your code hosted in a public repository.
-        // var token = "";
-        var token = File.ReadAllText("token.txt");
-
-        // Some alternative options would be to keep your token in an Environment Variable or a standalone file.
-        // var token = Environment.GetEnvironmentVariable("NameOfYourEnvironmentVariable");
-        // var token = File.ReadAllText("token.txt");
-        // var token = JsonConvert.DeserializeObject<AConfigurationClass>(File.ReadAllText("config.json")).Token;
-
-        await _client.LoginAsync(TokenType.Bot, token);
-        await _client.StartAsync();
-
-        // Block this task until the program is closed.
+        await client.ConnectAsync();
         await Task.Delay(-1);
     }
-    
-    private Task Log(LogMessage msg)
+
+    private async Task ReactionAddedHandler(DiscordClient client, MessageReactionAddEventArgs eventArgs)
     {
-        Logger.Info(msg.ToString());
-        return Task.CompletedTask;
+        if (eventArgs.Emoji.Equals(DiscordEmoji.FromName(client, pinEmoji)))
+        {
+            // await client.SendMessageAsync(eventArgs.Channel, $"Pin!");
+            if (!eventArgs.Message.Pinned)
+            {
+                Log.Information("Pin {messageId} in {channelId}.", eventArgs.Message.Id, eventArgs.Channel.Id);
+                await eventArgs.Message.PinAsync();
+                await eventArgs.Message.CreateReactionAsync(DiscordEmoji.FromName(client, pinEmoji));
+            }
+        } else if (eventArgs.Emoji.Equals(DiscordEmoji.FromName(client, removePinEmoji)))
+        {
+            var pinReactionCount = eventArgs.Message.Reactions.Count(reaction =>
+                reaction.Emoji.Equals(DiscordEmoji.FromName(client, pinEmoji))) - 1; // Minus 1 because of self-reaction
+            if (eventArgs.Message.Pinned && pinReactionCount <= 1)
+            {
+                Log.Information("Unpin {messageId} in {channelId}.", eventArgs.Message.Id, eventArgs.Channel.Id);
+                await eventArgs.Message.UnpinAsync();
+                await eventArgs.Message.DeleteReactionsEmojiAsync(DiscordEmoji.FromName(client, pinEmoji));
+                await eventArgs.Message.DeleteReactionsEmojiAsync(DiscordEmoji.FromName(client, removePinEmoji));
+
+            }
+            else
+            {
+                // FIXME This is a really bad magic number implementation
+                Log.Information("Cannot unpin {messageId} in {channelId}.", eventArgs.Message.Id, eventArgs.Channel.Id);
+                if (pinReactionCount > 2) // Greater than 2 because of user-reaction + self-reaction
+                {
+                    // Minus 1 because of user-reaction + self-reaction
+                    await eventArgs.Channel.SendMessageAsync(
+                        $"Cannot unpin message. There are still {pinReactionCount-1} others who want to have it pinned.");
+                }
+                await eventArgs.Message.DeleteReactionsEmojiAsync(DiscordEmoji.FromName(client, removePinEmoji));
+            }
+        }
+    }
+
+    private async Task MessageCreatedHandler(DiscordClient client, MessageCreateEventArgs eventArgs)
+    {
+        Log.Debug("Message {Message}", eventArgs.Message);
     }
 }
