@@ -17,6 +17,21 @@
       <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
       <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Content Include=".vscode\.history\bic-fhtw-discord-bot\bic-fhtw-discord-bot_20220516205136.code-workspace" />
+      <Content Include=".vscode\.history\bic-fhtw-discord-bot\bic-fhtw-discord-bot_20220516205258.code-workspace" />
+      <Content Include=".vscode\.history\bic-fhtw-discord-bot\bic-fhtw-discord-bot_20220516205357.code-workspace" />
+      <Content Include=".vscode\.history\bic-fhtw-discord-bot\bic-fhtw-discord-bot_20220516205644.code-workspace" />
+      <Content Include=".vscode\.history\bic-fhtw-discord-bot\README_20220516203353.md" />
+      <Content Include=".vscode\.history\bic-fhtw-discord-bot\README_20220516205105.md" />
+      <Content Include=".vscode\.history\bic-fhtw-discord-bot\README_20220517173315.md" />
+      <Content Include=".vscode\.history\bic-fhtw-discord-bot\README_20220517173451.md" />
+      <None Remove="token.txt" />
+      <Content Include="token.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
     
     <Target Name="CopyToken" AfterTargets="Build">
         <Message Text="Executing CopyToken task" Importance="High" />
